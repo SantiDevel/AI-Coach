@@ -22,7 +22,7 @@ El plan puede refinarse mediante **feedback conversacional**: si el resultado no
 | Componente | Detalle |
 |---|---|
 | **Plataforma** | AWS Bedrock |
-| **Modelo** | Claude 3 Sonnet (Anthropic) |
+| **Modelo** | Amazon Nova 2 Lite (`amazon.nova-2-lite-v1:0`) |
 | **Tipo de IA** | IA Generativa — consume modelos fundacionales ya entrenados |
 | **Técnica principal** | Prompt Engineering dinámico parametrizado |
 | **Ajuste de resultados** | Historial de conversación con feedback del usuario |
@@ -38,6 +38,8 @@ Bedrock permite **consumir modelos ya entrenados** (Claude, Titan, Llama) sin ne
 | Tú entrenas el modelo | Tú consumes un modelo ya entrenado |
 | Necesitas datasets propios | Solo necesitas diseñar buenos prompts |
 | Infraestructura compleja | Llamada a una API |
+
+> **Modelo elegido:** Amazon Nova 2 Lite — última versión disponible (dic. 2025), ventana de contexto de 1M tokens, disponible en `eu-south-2` (España). Model ID: `amazon.nova-2-lite-v1:0`
 
 ---
 
@@ -59,7 +61,7 @@ Bedrock permite **consumir modelos ya entrenados** (Claude, Titan, Llama) sin ne
                       ▼
 ┌─────────────────────────────────────────────────────────┐
 │                  AWS BEDROCK                            │
-│             Modelo: Claude 3 Sonnet                     │
+│             Modelo: Amazon Nova 2 Lite                     │
 │   Procesa el prompt con contexto y genera el plan       │
 └─────────────────────┬───────────────────────────────────┘
                       │  JSON con plan de entrenamiento
@@ -98,7 +100,7 @@ AI-Coach/
 ```
 AWS_ACCESS_KEY_ID=tu_access_key
 AWS_SECRET_ACCESS_KEY=tu_secret_key
-AWS_DEFAULT_REGION=us-east-1
+AWS_DEFAULT_REGION=eu-south-2
 ```
 
 ### `requirements.txt`
