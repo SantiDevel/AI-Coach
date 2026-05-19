@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  ai-coach:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    volumes:
+      - ./frontend:/app/frontend
+      - ./backend:/app/backend
+    restart: unless-stopped

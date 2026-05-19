@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-Coach — Entrenamiento con IA</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🏋️</span>
+        <span class="logo-text">AI<span class="logo-accent">Coach</span></span>
+      </div>
+      <p class="logo-sub">Planes de entrenamiento personalizados con Inteligencia Artificial</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="modo-selector">
+      <button class="modo-btn active" id="btn-personal" onclick="seleccionarModo('personal')">🏋️ Modo Personal</button>
+      <button class="modo-btn" id="btn-preparador" onclick="seleccionarModo('preparador')">🏅 Modo Preparador Físico</button>
+    </section>
+
+    <!-- FORMULARIO MODO PERSONAL -->
+    <section class="formulario-card" id="form-personal">
+      <h2>Cuéntame sobre ti</h2>
+      <form id="form-personal-data">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Edad</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="edad" placeholder="25" autocomplete="off" required
+                data-options='["15","18","20","25","30","35","40","45","50","55","60","65","70"]'/>
+              <div class="ac-dropdown" id="ac-edad"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Peso (kg)</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="peso" placeholder="75" autocomplete="off" required
+                data-options='["50","55","60","65","70","75","80","85","90","95","100","110","120"]'/>
+              <div class="ac-dropdown" id="ac-peso"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Altura (cm)</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="altura" placeholder="175" autocomplete="off" required
+                data-options='["150","155","160","165","170","175","180","185","190","195","200"]'/>
+              <div class="ac-dropdown" id="ac-altura"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Objetivo</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="objetivo" placeholder="Ganar músculo" autocomplete="off" required
+                data-options='["Ganar músculo","Perder peso","Mejorar resistencia","Flexibilidad","Mantenimiento","Rehabilitación"]'/>
+              <div class="ac-dropdown" id="ac-objetivo"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nivel</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="nivel" placeholder="Intermedio" autocomplete="off" required
+                data-options='["Principiante","Intermedio","Avanzado"]'/>
+              <div class="ac-dropdown" id="ac-nivel"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Días por semana</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="dias" placeholder="3" autocomplete="off" required
+                data-options='["1","2","3","4","5","6","7"]'/>
+              <div class="ac-dropdown" id="ac-dias"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label>Equipamiento</label>
+            <div class="tags-container" id="equipamiento-tags"></div>
+            <div class="tags-input-row">
+              <div class="autocomplete-wrap" style="flex:1">
+                <input type="text" id="equipamiento-input" placeholder="Escribe o selecciona equipamiento..." autocomplete="off"
+                  data-options='["Gimnasio completo","Mancuernas","Barra y discos","Máquinas de cable","TRX","Gomas elásticas","Kettlebells","Sin material","Banco de pesas","Comba"]'/>
+                <div class="ac-dropdown" id="ac-equipamiento-input"></div>
+              </div>
+              <button type="button" class="btn-tag-add" onclick="addTag()">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="observaciones">Observaciones (opcional)</label>
+            <textarea id="observaciones" rows="3" placeholder="Ej: tengo dolor de rodilla, no puedo hacer sentadillas, entreno por la mañana..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-generar"><span>✨</span> Generar mi plan</button>
+      </form>
+    </section>
+
+    <!-- FORMULARIO MODO PREPARADOR -->
+    <section class="formulario-card hidden" id="form-preparador">
+      <h2>Configura la sesión</h2>
+      <form id="form-preparador-data">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Deporte / Disciplina</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="deporte" placeholder="Fútbol" autocomplete="off" required
+                data-options='["Fútbol","Baloncesto","Natación","Atletismo","Ciclismo","Tenis","Rugby","Voleibol","Padel","Balonmano","Actividad física general"]'/>
+              <div class="ac-dropdown" id="ac-deporte"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Categoría</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="categoria" placeholder="Amateur" autocomplete="off" required
+                data-options='["Infantil","Juvenil","Amateur","Profesional","Rehabilitación","Tercera edad","Preescolar"]'/>
+              <div class="ac-dropdown" id="ac-categoria"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Objetivo físico</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="objetivo-fisico" placeholder="Fuerza" autocomplete="off" required
+                data-options='["Fuerza","Resistencia","Velocidad","Explosividad","Movilidad y equilibrio","Coordinación","Flexibilidad","Mantenimiento activo"]'/>
+              <div class="ac-dropdown" id="ac-objetivo-fisico"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Fase de temporada</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="fase" placeholder="Competición" autocomplete="off" required
+                data-options='["Pretemporada","Competición","Recuperación","Fuera de temporada"]'/>
+              <div class="ac-dropdown" id="ac-fase"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Duración sesión (min)</label>
+            <div class="autocomplete-wrap">
+              <input type="text" id="duracion" placeholder="60" autocomplete="off" required
+                data-options='["15","30","45","60","75","90","120"]'/>
+              <div class="ac-dropdown" id="ac-duracion"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="observaciones-prep">Observaciones (opcional)</label>
+            <textarea id="observaciones-prep" rows="3" placeholder="Ej: grupo de 15 personas, algunos con lesiones de espalda, entreno en exterior..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-generar"><span>✨</span> Generar sesión</button>
+      </form>
+    </section>
+
+    <div class="loading hidden" id="loading">
+      <div class="spinner"></div>
+      <p>Generando tu plan con IA...</p>
+    </div>
+
+    <section class="resultado hidden" id="resultado">
+      <div class="resultado-header">
+        <h2 id="plan-nombre">Tu plan de entrenamiento</h2>
+        <button class="btn-reset" onclick="resetear()">← Nuevo plan</button>
+      </div>
+      <div id="dias-container"></div>
+      <div class="consejos-box hidden" id="consejos-box"></div>
+      <div class="feedback-box">
+        <h3>¿Quieres ajustar el plan?</h3>
+        <div class="feedback-input-row">
+          <input type="text" id="feedback-input" placeholder='Ej: "hazlo menos intenso" o "quita los ejercicios de suelo"' />
+          <button onclick="enviarFeedback()" class="btn-feedback">Ajustar ✨</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>AI-Coach · Proyecto Final IA + Big Data · AWS Bedrock + Amazon Nova 2 Lite</p>
+  </footer>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
