@@ -1,7 +1,7 @@
 # 🏋️ AI-Coach — Asistente de Entrenamiento con Inteligencia Artificial
 
 > Proyecto Final · Especialització IA + Big Data · AWS Bedrock  
-> Equipo: **Javier Peiro** (Frontend + Docker) · **Santiago** (Backend + IA)
+> Equipo: **Javier Peiro** (Frontend + Flask + Docker) · **Santiago** (IA + AWS Bedrock)
 
 ---
 
@@ -83,7 +83,7 @@ AI-Coach/
 ├── .gitignore
 ├── Dockerfile                  ← Imagen del contenedor Python + Flask
 ├── docker-compose.yml          ← Orquestación del servicio
-├── requirements.txt
+├── requirements.txt            ← Dependencias (usadas por Docker al construir)
 ├── README.md
 │
 ├── backend/
@@ -203,15 +203,15 @@ Santiago devuelve al frontend:
 }
 ```
 
-| Día | 🔵 Javier — Frontend + Docker | 🟠 Santiago — Backend + IA |
-|-----|-------------------------------|---------------------------|
-| **1** | Acordar contrato JSON. Estructura HTML base: header, selector de modo, formulario de perfil | Acordar contrato JSON. Configurar AWS: cuenta, acceso a Bedrock, primera llamada a Nova 2 Lite con `boto3` |
-| **2** | CSS completo: layout responsive, tarjetas de entrenamiento por día, colores por modo | `app.py`: servidor Flask básico con endpoint `/generar-plan` que recibe JSON y devuelve texto de Nova 2 Lite |
+| Día | 🔵 Javier — Frontend + Flask + Docker | 🟠 Santiago — IA + AWS Bedrock |
+|-----|---------------------------------------|--------------------------------|
+| **1** | Acordar contrato JSON. Estructura HTML base: header, selector de modo, formulario de perfil | Acordar contrato JSON. Configurar cuenta AWS, habilitar acceso a Bedrock y Nova 2 Lite en `eu-south-2` |
+| **2** | CSS completo: layout responsive, tarjetas de entrenamiento por día, colores por modo | Investigación API de Bedrock con `boto3`. Primera llamada real a Nova 2 Lite desde Python |
 | **3** | JavaScript: lógica del formulario, validaciones, mock de datos JSON para desarrollar sin backend real | `prompts.py`: prompt dinámico modo personal — parametriza peso, objetivo, nivel, días y equipamiento |
-| **4** | Función `renderPlan(json)`: parsear el JSON y pintar tarjetas visuales con ejercicios y series | Afinar prompt para que Nova 2 Lite devuelva **JSON válido** con la estructura del contrato. Manejo de errores |
-| **5** | Modo Preparador Físico en la UI: selector de deporte, categoría, fase de temporada. Caja de feedback conversacional | `prompts.py`: prompt modo preparador físico. Lógica de historial de conversación para el feedback |
-| **6** | `Dockerfile` + `docker-compose.yml`: contenerizar la app. Conectar `fetch()` real al Flask de Santiago | Pruebas end-to-end con el frontend de Javier. Ajustar prompts si los resultados no son consistentes |
-| **7** | Pruebas del contenedor Docker, pulir diseño responsive, ensayo de la demo en vivo | Redactar reflexión crítica completa. Preparar explicación técnica para la presentación oral |
+| **4** | `app.py`: servidor Flask con endpoint `/generar-plan` que recibe el JSON del formulario y llama a `prompts.py` | Afinar prompt para que Nova 2 Lite devuelva **JSON válido** con la estructura del contrato. Manejo de errores |
+| **5** | Función `renderPlan(json)`: parsear el JSON de Bedrock y pintar tarjetas visuales con ejercicios y series | `prompts.py`: prompt modo preparador físico. Lógica de persistencia del historial conversacional para el feedback |
+| **6** | `Dockerfile` + `docker-compose.yml`: contenerizar la app completa. Conectar `fetch()` real al endpoint Flask | Pruebas end-to-end con el frontend de Javier. Ajustar prompts si los resultados no son consistentes |
+| **7** | Modo Preparador Físico en UI, pulir diseño responsive, pruebas del contenedor, ensayo de la demo en vivo | Redactar reflexión crítica completa. Preparar explicación técnica de Bedrock para la presentación oral |
 
 ---
 
@@ -238,8 +238,8 @@ La IA no sustituye a un preparador físico ni a un médico. El plan generado deb
 
 | Miembro | Área | Responsabilidad |
 |---------|------|-----------------|
-| **Javier** | Frontend + Docker | Interfaz HTML/CSS/JS, formulario, renderizado del plan, Dockerfile y docker-compose |
-| **Santiago** | Backend + AWS Bedrock | `app.py` Flask, conexión a Nova 2 Lite, `prompts.py`, historial conversacional |
+| **Javier** | Frontend + Flask + Docker | HTML/CSS/JS, formulario, renderizado del plan, `app.py` Flask, `Dockerfile`, `docker-compose.yml` |
+| **Santiago** | IA + AWS Bedrock | Configuración AWS Bedrock, conexión a Nova 2 Lite, `prompts.py` (JSON entrada/salida), persistencia del historial conversacional |
 
 ---
 
@@ -248,15 +248,15 @@ La IA no sustituye a un preparador físico ni a un médico. El plan generado deb
 - [x] Definición del problema y arquitectura
 - [x] README y documentación
 - [x] Estructura del repositorio y `.gitignore`
-- [ ] Configuración AWS Bedrock + Nova 2 Lite
-- [ ] `app.py` Flask + endpoint `/generar-plan`
-- [ ] `prompts.py` — prompts dinámicos (modo personal + preparador físico)
-- [ ] Historial de conversación con feedback
-- [ ] Interfaz HTML/CSS/JS
-- [ ] `Dockerfile` + `docker-compose.yml`
-- [ ] Integración frontend ↔ Flask ↔ Bedrock
-- [ ] Pruebas y ajustes finales
-- [ ] Presentación oral
+- [ ] Configuración AWS Bedrock + Nova 2 Lite `eu-south-2` *(Santiago)*
+- [ ] `prompts.py` — prompts dinámicos modo personal + preparador físico *(Santiago)*
+- [ ] Historial de conversación con feedback *(Santiago)*
+- [ ] Interfaz HTML/CSS/JS *(Javier)*
+- [ ] `app.py` Flask + endpoint `/generar-plan` *(Javier)*
+- [ ] `Dockerfile` + `docker-compose.yml` *(Javier)*
+- [ ] Integración frontend ↔ Flask ↔ Bedrock *(ambos)*
+- [ ] Pruebas y ajustes finales *(ambos)*
+- [ ] Presentación oral *(ambos)*
 
 ---
 
