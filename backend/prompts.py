@@ -25,6 +25,7 @@ PERFIL DEL USUARIO:
 
 INSTRUCCIONES:
 Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta, sin texto adicional:
+
 {{
   "plan_nombre": "Nombre descriptivo del plan",
   "dias": [
@@ -48,7 +49,14 @@ Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta, sin texto adici
   ]
 }}
 
-Genera exactamente {dias} días de entrenamiento. Adapta los ejercicios al equipamiento disponible y al nivel del usuario."""
+Genera exactamente {dias} días de entrenamiento. 
+Adapta los ejercicios al equipamiento disponible y al nivel del usuario.
+
+IMPORTANTE:
+- El JSON debe estar completo y correctamente cerrado.
+- No escribas explicaciones fuera del JSON.
+- No uses markdown.
+- Genera máximo 5 ejercicios por día para evitar respuestas demasiado largas."""
 
     elif modo == "preparador":
         deporte = datos.get("deporte")
@@ -93,7 +101,15 @@ Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta, sin texto adici
   ]
 }}
 
-Adapta los ejercicios al deporte, la categoría y la fase de temporada. La sesión debe durar aproximadamente {duracion} minutos."""
+Adapta los ejercicios al deporte, la categoría y la fase de temporada.
+
+IMPORTANTE:
+- El nombre de los ejercicios debe ser limpio y profesional.
+- NO añadas el objetivo físico ({objetivo_fisico}) dentro del nombre del ejercicio.
+- Evita modificar los nombres originales de los ejercicios según el objetivo físico.
+- Mantén los nombres técnicos reales de los ejercicios.
+
+La sesión debe durar aproximadamente {duracion} minutos.."""
 
     else:
         return "Genera un plan de entrenamiento genérico en formato JSON."

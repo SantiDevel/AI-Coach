@@ -47,7 +47,11 @@ def generar_plan():
 
         response = client.converse(
             modelId=MODEL_ID,
-            messages=[{"role": m["role"], "content": [{"text": m["content"]}]} for m in mensajes]
+            messages=[{"role": m["role"], "content": [{"text": m["content"]}]} for m in mensajes],
+            inferenceConfig={
+                "maxTokens": 8000,
+                "temperature": 0.3
+            }
         )
 
         respuesta_texto = response["output"]["message"]["content"][0]["text"]
