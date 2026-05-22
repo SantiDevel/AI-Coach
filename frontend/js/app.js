@@ -118,31 +118,44 @@ async function generarPlan(datos) {
 
 // ===== RENDERIZAR PLAN =====
 function renderPlan(plan) {
-  document.getElementById("plan-nombre").textContent = plan.plan_nombre || "Tu plan de entrenamiento";
+  document.getElementById("plan-nombre").textContent =
+    plan.plan_nombre || "Tu plan de entrenamiento";
 
   const container = document.getElementById("dias-container");
   container.innerHTML = "";
+
+  if (plan.texto) {
+    container.innerHTML = `<p>${plan.texto.replace(/\n/g, "<br>")}</p>`;
+    document.getElementById("resultado").classList.remove("hidden");
+    return;
+  }
 
   if (plan.dias && plan.dias.length > 0) {
     plan.dias.forEach(dia => {
       const card = document.createElement("div");
       card.className = "dia-card";
+
       const ejerciciosHTML = (dia.ejercicios || []).map(ej => `
         <div class="ejercicio">
           <span class="ejercicio-nombre">${ej.nombre}</span>
           <span class="ejercicio-detalle">${ej.series} x ${ej.repeticiones}<br>⏱ ${ej.descanso}</span>
         </div>
       `).join("");
+
       card.innerHTML = `
         <h3>${dia.dia}</h3>
         <p class="grupo">${dia.grupo_muscular || dia.capacidad || ""}</p>
         ${ejerciciosHTML}
       `;
+
       container.appendChild(card);
     });
+  } else {
+    container.innerHTML = "<p>No se pudo mostrar el plan correctamente.</p>";
   }
 
   const consejosBox = document.getElementById("consejos-box");
+
   if (plan.consejos && plan.consejos.length > 0) {
     consejosBox.innerHTML = `<h3>💡 Consejos</h3><ul>${plan.consejos.map(c => `<li>${c}</li>`).join("")}</ul>`;
     consejosBox.classList.remove("hidden");
